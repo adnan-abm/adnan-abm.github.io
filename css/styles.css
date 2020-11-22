@@ -1,0 +1,11 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.emails-input-example {
+    position: relative;
+    width: 540px;
+    height: 300px;
+    margin: 100px auto;
+}

@@ -1,0 +1,72 @@
+.email-input-main-wrapper {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 32px 50px;
+    background: #F8F8F7;
+}
+
+.email-input-main-wrapper h2 {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 27px;
+    color: #050038;
+    margin: 0;
+    padding: 0 0 24px 0;
+}
+
+.email-input-main-wrapper h2 strong {
+    font-weight: 700;
+}
+
+.email-input-main-wrapper .emails-container {
+    background: #FFFFFF;
+    border: 1px solid #C3C2CF;
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 8px 7px;
+}
+
+.email-input-main-wrapper .email {
+    display: inline-block;
+    background: rgba(102, 153, 255, 0.2);
+    border-radius: 100px;
+}
+
+.email-input-main-wrapper .email span.email-address {
+    height: 24px;
+    font-size: 14px;
+    line-height: 24px;
+    padding-left: 10px;
+    color: #050038;
+}
+
+.email-input-main-wrapper .email span.remove::before {
+    content: ' ';
+    color: #050038;
+    width: 8px;
+    height: 8px;
+    background: url(remove.svg) center 8px no-repeat;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+.email-input-main-wrapper .emails-container .email-input,
+.email-input-main-wrapper .emails-container .email-input:focus {
+    background: transparent;
+    border: none;
+    outline: none;
+    height: 24px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    color: #050038;
+    margin-left: 8px;
+}
+

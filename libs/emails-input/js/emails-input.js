@@ -102,9 +102,14 @@ function EmailsInput(inputContainerNode, title) {
 
         const emailCountBtn = document.createElement('button');
         emailCountBtn.innerText = 'Get emails count';
+        emailCountBtn.onclick = countEmails;
         actionsContainer.appendChild(emailCountBtn);
 
         container.appendChild(actionsContainer);
+    }
+
+    function countEmails() {
+        alert(`Total valid emails: ${validEmailsCount}`);
     }
 
     function getRandomInt(max) {

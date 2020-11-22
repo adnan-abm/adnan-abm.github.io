@@ -36,10 +36,24 @@ function EmailsInput(inputContainerNode, title) {
 
     mainContainer.appendChild(emailsContainer);
 
+    const actionsContainer = document.createElement('div');
+    actionsContainer.className = 'actions-container';
+
+    const addEmailBtn = document.createElement('button');
+    addEmailBtn.innerText = 'Add email';
+    actionsContainer.appendChild(addEmailBtn);
+
+    const emailCountBtn = document.createElement('button');
+    emailCountBtn.innerText = 'Get emails count';
+    actionsContainer.appendChild(emailCountBtn);
+
+
+    mainContainer.appendChild(actionsContainer);
+
 
     inputContainerNode.appendChild(mainContainer);
 
-    addTestEmail();
+    addTestEmail();addTestEmail();addTestEmail();
 
     function addTestEmail() {
         addEmail('test@miro.com')

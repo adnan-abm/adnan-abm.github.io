@@ -1,12 +1,12 @@
 .email-input-main-wrapper {
     position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    padding: 32px 50px;
+    padding: 0;
     background: #F8F8F7;
 }
 
@@ -15,8 +15,8 @@
     font-size: 20px;
     line-height: 27px;
     color: #050038;
-    margin: 0;
-    padding: 0 0 24px 0;
+    margin: 32px 50px 0;
+    padding: 0;
 }
 
 .email-input-main-wrapper h2 strong {
@@ -29,12 +29,14 @@
     box-sizing: border-box;
     border-radius: 4px;
     padding: 8px 7px;
+    margin: 24px 50px 96px;
 }
 
 .email-input-main-wrapper .email {
     display: inline-block;
     background: rgba(102, 153, 255, 0.2);
     border-radius: 100px;
+    margin: 2px 8px 2px 0;
 }
 
 .email-input-main-wrapper .email span.email-address {
@@ -67,6 +69,26 @@
     font-size: 14px;
     line-height: 24px;
     color: #050038;
-    margin-left: 8px;
 }
 
+.actions-container {
+    background: #fff;
+    padding: 24px 50px 32px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0 0 8px 8px;
+}
+
+.actions-container button {
+    background: #4262FF;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    border: none;
+    padding: 8px 16px;
+    margin-right: 16px;
+}

@@ -1,3 +1,9 @@
+const testEmails = [
+    'john@miro.com',
+    'mike@miro.com',
+    'foo@miro.com',
+    'bar@miro.com'
+];
 
 /**
  * EmailsInput
@@ -7,56 +13,106 @@
  */
 function EmailsInput(inputContainerNode, title) {
     if (!(inputContainerNode instanceof HTMLElement)) {
-        console.error('inputContainerNode is not a valid HTMLElement', inputContainerNode);
+        console.error('Not a valid HTMLElement:', inputContainerNode);
         return;
     }
 
-    if (inputContainerNode.innerHTML.length > 0) {
-        console.warn('EmailsInput is already executed on this node', inputContainerNode);
+    if (inputContainerNode.hasAttribute('data-emails-input')) {
+        console.warn('EmailsInput() is already executed on this node:', inputContainerNode);
         return;
     }
 
-    const mainContainer = document.createElement('div');
-    mainContainer.className = 'email-input-main-wrapper';
+    let validEmailsCount = 0;
+    let totalEmailsCount = 0;
 
-    if (title && title.length) {
-        const header = document.createElement('h2');
-        header.innerHTML = title;
-        mainContainer.appendChild(header)
+    const mainContainer = addMainContainer(inputContainerNode);
+    addTitle(mainContainer, title);
+    const emailsInputContainer = addEmailsContainer(mainContainer);
+    const emailInputField = addEmailInputField(emailsInputContainer);
+    addActionsContainer(mainContainer);
+
+    function addMainContainer(inputContainerNode) {
+        const container = document.createElement('div');
+        container.className = 'email-input-main-wrapper';
+        inputContainerNode.appendChild(container);
+        inputContainerNode.setAttribute('data-emails-input', 'initialized');
+        return container;
     }
-    
-    const emailsContainer = document.createElement('div');
-    emailsContainer.className = 'emails-container';
-    
 
-    const emailInput = document.createElement('input');
-    emailInput.className = 'email-input';
-    emailInput.placeholder = 'add people...'
-    emailsContainer.appendChild(emailInput);
+    function addTitle(container, titleText) {
+        if (titleText && titleText.length) {
+            const header = document.createElement('h2');
+            header.innerHTML = titleText;
+            container.appendChild(header);
+        }
+    }
 
-    mainContainer.appendChild(emailsContainer);
+    function addEmailsContainer(container) {
+        const emailsContainer = document.createElement('div');
+        emailsContainer.className = 'emails-container';
+        container.appendChild(emailsContainer);
+        return emailsContainer;
+    }
 
-    const actionsContainer = document.createElement('div');
-    actionsContainer.className = 'actions-container';
+    function addEmailInputField(container) {
+        const emailInput = document.createElement('input');
+        emailInput.className = 'email-input';
+        emailInput.spellcheck = false;
+        emailInput.autocapitalize = false;
+        emailInput.autocomplete = false;
+        emailInput.autocorrect = false;
+        emailInput.placeholder = 'add people...';
+        emailInput.onkeyup = emailOnKeyPress;
+        emailInput.onblur = processEmail;
+        container.appendChild(emailInput);
+        return emailInput;
+    }
 
-    const addEmailBtn = document.createElement('button');
-    addEmailBtn.innerText = 'Add email';
-    actionsContainer.appendChild(addEmailBtn);
+    function isValidEmail(email) {
+        const filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return filter.test(email);
+    }
 
-    const emailCountBtn = document.createElement('button');
-    emailCountBtn.innerText = 'Get emails count';
-    actionsContainer.appendChild(emailCountBtn);
+    function processEmail(e) {
+        const email = e.target.value.trim();
+        if (isValidEmail(email)) {
+            addEmail(email);
+        } else if (email.length > 0) {
+            addInvalidEmail(email);
+        }
+        e.target.value = '';
+        e.target.focus();
+    }
 
+    function emailOnKeyPress(e) {
+        if (e.keyCode === 13 || e.keyCode === 188) {
+            e.target.value = e.target.value.replace(/,/g, '');
+            processEmail(e);
+        }
+    }
 
-    mainContainer.appendChild(actionsContainer);
+    function addActionsContainer(container) {
+        const actionsContainer = document.createElement('div');
+        actionsContainer.className = 'actions-container';
 
+        const addEmailBtn = document.createElement('button');
+        addEmailBtn.innerText = 'Add email';
+        addEmailBtn.onclick = addTestEmail;
+        actionsContainer.appendChild(addEmailBtn);
 
-    inputContainerNode.appendChild(mainContainer);
+        const emailCountBtn = document.createElement('button');
+        emailCountBtn.innerText = 'Get emails count';
+        actionsContainer.appendChild(emailCountBtn);
 
-    addTestEmail();addTestEmail();addTestEmail();
+        container.appendChild(actionsContainer);
+    }
+
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
 
     function addTestEmail() {
-        addEmail('test@miro.com')
+        addEmail(testEmails[getRandomInt(testEmails.length)]);
     }
 
     function addEmail(email) {
@@ -70,9 +126,32 @@ function EmailsInput(inputContainerNode, title) {
 
         const removeEmail = document.createElement('span');
         removeEmail.className = 'remove';
+        removeEmail.onclick = deleteEmail;
         emailEntry.appendChild(removeEmail);
-        emailsContainer.insertBefore(emailEntry, emailInput);
+        emailsInputContainer.insertBefore(emailEntry, emailInputField);
+        validEmailsCount++;
+        totalEmailsCount++;
+        emailInputField.placeholder = 'add more people...';
+        return emailEntry;
+    }
 
+    function addInvalidEmail(email) {
+        const invalidEmail = addEmail(email);
+        invalidEmail.classList.add('invalid');
+        validEmailsCount--;
+    }
+
+    function deleteEmail(e) {
+        const email = e.target.parentNode;
+        totalEmailsCount--;
+        if (!email.classList.contains('invalid')) {
+            validEmailsCount--;
+        }
+        email.parentNode.removeChild(email);
+
+        if (totalEmailsCount === 0) {
+            emailInputField.placeholder = 'add people...';
+        }
     }
 
 }

@@ -81,7 +81,6 @@ function EmailsInput(inputContainerNode, title) {
             addInvalidEmail(email);
         }
         e.target.value = '';
-        e.target.focus();
     }
 
     function emailOnKeyPress(e) {

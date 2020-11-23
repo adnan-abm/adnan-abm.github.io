@@ -80,11 +80,11 @@ function EmailsInput(inputContainerNode, title) {
     }
 
     function processMultipleEmails(e) {
-        const emails = e.clipboardData.getData('text/plain').trim();
+        const emails = e.clipboardData ? e.clipboardData.getData('text/plain').trim() : window.clipboardData.getData('Text').trim();
         emails.split(',').forEach(function(email){
             addSingleEmail(email.trim());
         });
-        
+
         setTimeout(function(){
             emailInputField.value = '';
         }, 1);

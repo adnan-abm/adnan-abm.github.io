@@ -109,7 +109,7 @@ function EmailsInput(inputContainerNode, title) {
     }
 
     function countEmails() {
-        alert(`Total valid emails: ${validEmailsCount}`);
+        alert('Total valid emails: ' + validEmailsCount);
     }
 
     function getRandomInt(max) {

@@ -64,6 +64,7 @@ function EmailsInput(inputContainerNode, title) {
         emailInput.placeholder = 'add people...';
         emailInput.onkeyup = emailOnKeyPress;
         emailInput.onblur = processEmail;
+        emailInput.onpaste = processMultipleEmails;
         container.appendChild(emailInput);
         return emailInput;
     }
@@ -74,13 +75,27 @@ function EmailsInput(inputContainerNode, title) {
     }
 
     function processEmail(e) {
-        const email = e.target.value.trim();
+        addSingleEmail(e.target.value.trim());
+        e.target.value = '';
+    }
+
+    function processMultipleEmails(e) {
+        const emails = e.clipboardData.getData('text/plain').trim();
+        emails.split(',').forEach(function(email){
+            addSingleEmail(email.trim());
+        });
+        
+        setTimeout(function(){
+            emailInputField.value = '';
+        }, 1);
+    }
+
+    function addSingleEmail(email) {
         if (isValidEmail(email)) {
             addEmail(email);
         } else if (email.length > 0) {
             addInvalidEmail(email);
         }
-        e.target.value = '';
     }
 
     function emailOnKeyPress(e) {

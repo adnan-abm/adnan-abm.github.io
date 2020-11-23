@@ -81,6 +81,10 @@
     margin-top: 2px;
 }
 
+.email-input-main-wrapper .emails-container .email-input::-ms-clear {
+    display: none;
+}
+
 .actions-container {
     background: #fff;
     padding: 24px 50px 32px;
